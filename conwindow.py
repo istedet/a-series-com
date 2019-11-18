@@ -21,12 +21,14 @@ def spawnwindow(root, printer_ip, printer_port):
     except Exception as e:
         messagebox.showinfo("Error", f'An error occured: {e}')
     else:
-        # Create the new window
+        # Create the new window, setting a name and the focus to the window
         t = Toplevel(root)
+        t.title('Active connection')
+        t.focus()
 
         # Create a StringVar to hold the reply from the printer
         printer_reply = StringVar()
-        printer_reply.set('No reply received yet')
+        printer_reply.set('No reply received')
 
         # Create the frame in the window (I don't know if I can use "mainframe" as
         # it's already used in main.py)
@@ -46,13 +48,16 @@ def spawnwindow(root, printer_ip, printer_port):
         ttk.Label(subframe, textvariable=printer_reply).grid(column=2, row=3, sticky=W)
 
         # Create the query button, which triggers the query function
-        ttk.Button(subframe, text="Query connections", command=partial(
-            query, psock, printer_reply, b'\x04\x01\x01\xE0')).grid(column=1, row=4, sticky=E)
+        ttk.Button(subframe, text="Send query_con", command=partial(
+            query, psock, printer_reply, b'\x04\x01\x01\xE0')).grid(column=1, row=4)
 
         # Create the reset button, this triggers the query function with a
         # different byte string
-        ttk.Button(subframe, text="Reset connections", command=partial(
-            query, psock, printer_reply, b'\x07\x00\x01\x2c')).grid(column=2, row=4, sticky=W)
+        ttk.Button(subframe, text="Send reset_con", command=partial(
+            query, psock, printer_reply, b'\x07\x00\x01\x2c')).grid(column=2, row=4)
+
+        ttk.Button(subframe, text="Close connection",
+                   command=partial(p_sock_end, psock, t)).grid(column=3, row=4)
 
         # Give every child item some padding so that it doesn't look like shit.
         for child in subframe.winfo_children():
