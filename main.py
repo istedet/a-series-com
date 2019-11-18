@@ -19,7 +19,7 @@ printer_ip = StringVar()
 printer_port = StringVar()
 
 # Define default values
-printer_ip.set('127.0.0.1')
+printer_ip.set('192.168.1.92')
 printer_port.set('700')
 
 # Create two text labels

@@ -57,7 +57,3 @@ def spawnwindow(root, printer_ip, printer_port):
         # Give every child item some padding so that it doesn't look like shit.
         for child in subframe.winfo_children():
             child.grid_configure(padx=5, pady=5)
-
-        # Start the main loop for the window (I'm unsure if spawning a new
-        # toplevel window is the best way to do this)
-        t.mainloop()
