@@ -33,7 +33,7 @@ ttk.Label(mainframe, text="ip address:").grid(column=0, row=0, sticky=W)
 ttk.Label(mainframe, text="port:").grid(column=1, row=0, sticky=W)
 
 # Create two elements to enter the IP and PORT into:
-ip_entry = ttk.Entry(mainframe, width=20, textvariable=printer_ip)
+ip_entry = ttk.Entry(mainframe, width=15, textvariable=printer_ip)
 ip_entry.grid(column=0, row=1, sticky=(W, E))
 
 port_entry = ttk.Entry(mainframe, width=6, textvariable=printer_port)
@@ -41,7 +41,7 @@ port_entry.grid(column=1, row=1, sticky=(W, E))
 
 # Create the connect button, which spawns a new window
 ttk.Button(mainframe, text="Connect", command=partial(
-    spawnwindow, root, printer_ip, printer_port)).grid(column=0, row=2, sticky=E)
+    spawnwindow, root, printer_ip, printer_port)).grid(column=0, row=2, sticky=W)
 
 ttk.Button(mainframe, text="Exit", command=partial(
     program_exit, root)).grid(column=1, row=2, sticky=W)
