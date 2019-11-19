@@ -6,6 +6,11 @@ import ipaddress
 
 
 def spawnwindow(root, printer_ip, printer_port):
+    # set up styles to get the correct window bakground
+    style = ttk.Style()
+    style.configure('textframe.TFrame', background='blue')
+    style.configure('buwh.TLabel', background='blue',
+                    foreground='white', font='arial 10 bold')
 
     try:
         # Retrieve the values from the previous window as this one is created
@@ -34,19 +39,26 @@ def spawnwindow(root, printer_ip, printer_port):
         # it's already used in main.py)
         subframe = ttk.Frame(t, padding="3 3 12 12")
         subframe.grid(column=0, row=0, sticky=(N, W, E, S))
+        itemframe = ttk.Frame(subframe, padding="3 3 12 12", borderwidth=2,
+                              relief="sunken", style='textframe.TFrame')
+        itemframe.grid(column=0, row=0, columnspan=3, rowspan=2, sticky=(N, W, E, S))
+
         t.columnconfigure(0, weight=1)
         t.rowconfigure(0, weight=1)
 
         # Create the text labels and populate the IP and Port
-        ttk.Label(subframe, text="Active ip:").grid(column=0, row=1, sticky=E)
-        ttk.Label(subframe, text=p_ip).grid(column=1, row=1, sticky=W)
-        ttk.Label(subframe, text="Active port:").grid(column=0, row=2, sticky=E)
-        ttk.Label(subframe, text=p_port).grid(column=1, row=2, sticky=W)
+        ttk.Label(itemframe, text="Active ip:", style='buwh.TLabel').grid(
+            column=1, row=1, sticky=E)
+        ttk.Label(itemframe, text=p_ip, style='buwh.TLabel').grid(column=2, row=1, sticky=W)
+        ttk.Label(itemframe, text="Active port:", style='buwh.TLabel').grid(
+            column=1, row=2, sticky=E)
+        ttk.Label(itemframe, text=p_port, style='buwh.TLabel').grid(column=2, row=2, sticky=W)
 
         # Create the label for the printer response
-        ttk.Label(subframe, text="Printer reply:").grid(column=0, row=3, sticky=E)
-        ttk.Label(subframe, textvariable=printer_reply).grid(
-            column=1, row=3, sticky=W, columnspan=3)
+        ttk.Label(itemframe, text="Printer reply:",
+                  style='buwh.TLabel').grid(column=1, row=3, sticky=E)
+        ttk.Label(itemframe, textvariable=printer_reply, style='buwh.TLabel').grid(
+            column=2, row=3, sticky=W, columnspan=2)
 
         # Create the query button, which triggers the query function
         ttk.Button(subframe, text="Send query_con", command=partial(
@@ -63,3 +75,6 @@ def spawnwindow(root, printer_ip, printer_port):
         # Give every child item some padding so that it doesn't look like shit.
         for child in subframe.winfo_children():
             child.grid_configure(padx=5, pady=5)
+
+
+# TODO: White background and black text for frame, centered text
