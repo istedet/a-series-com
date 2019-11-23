@@ -2,11 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from functools import partial
 from conwindow import spawnwindow
-
-
-# Define a window killer functipon to close the window
-def program_exit(window):
-    window.destroy()
+import utils
 
 
 # Create the root element and set a title for the window
@@ -44,7 +40,7 @@ ttk.Button(mainframe, text="Connect", command=partial(
     spawnwindow, root, printer_ip, printer_port)).grid(column=0, row=2, sticky=tk.W)
 
 ttk.Button(mainframe, text="Exit", command=partial(
-    program_exit, root)).grid(column=1, row=2, sticky=tk.W)
+    utils.program_exit, root)).grid(column=1, row=2, sticky=tk.W)
 
 # Give every child item some padding so that it doesn't look like shit.
 for child in mainframe.winfo_children():

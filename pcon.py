@@ -1,6 +1,6 @@
 import socket
 import select
-from tkinter import messagebox
+from tkinter import messagebox as msgbox
 
 
 # Connect creates the socket and returns it so it's accessible for other
@@ -37,7 +37,7 @@ def query(s, dispvalue, p_command):
         else:
             dispvalue.set('Response timeout (5s)')
     except Exception as e:
-        messagebox.showinfo("Error", f'An error occured: {e}')
+        msgbox.showerror("Error", f'An error occured: {e}')
 
 
 # Function to end the connection
